@@ -11,9 +11,9 @@ Berbeda dengan bit.ly, aplikasi URL Shortener ini dapat melakukan edit dan delet
 * Back End : Laravel 5.4
 
 ## To Do List
-To Do List disertai perkiraan tanggal
+To Do List disertai perkiraan tanggal jadi
 - [x] Menginstall Framework yang digunakan (5 Juli)
-- [ ] Perancangan model aplikasi (basis data, diagram kelas, algoritma) (6 Juli)
+- [ ] Perancangan aplikasi (basis data, gui, dsb) (6 Juli)
 - [ ] Pembuatan Interface dasar dengan Boostrap (8 Juli)
 - [ ] Pembuatan Interface secara fungsional (menggunakan Angular.js) (9 Juli)
 - [ ] Pembuatan fungsi hashing (POST Request untuk mendapatkan shortened URL) (14 Juli)
