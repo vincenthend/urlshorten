@@ -1,0 +1,106 @@
+body {
+    font-family: 'Lato', sans-serif;
+    color: #333;
+    background-color: #eee;
+    text-align: center;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.title {
+    margin-top: 80px;
+    font-size: 72px;
+    text-transform: uppercase;
+}
+
+.subtitle {
+    font-size: 20px;
+    letter-spacing: 8px;
+}
+
+.warningBox {
+    margin-top: 20px;
+    padding: 15px 20px 15px 20px;
+    box-sizing: border-box;
+    border: solid 1px #c7254e;
+    position: relative;
+    color: #c7254e;
+}
+
+#warningClose {
+    position: absolute;
+    top: 3px;
+    right: 5px;
+}
+
+.wrapper {
+    width: 100%;
+    position: relative;
+    margin-top: 20px;
+}
+
+#urlinput {
+    height: 60px;
+    border: none;
+    color: #a7052e;
+    font-size: 25px;
+    width: 100%;
+    padding-left: 14px;
+    box-sizing: border-box;
+}
+
+#shortenbutton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 20%;
+    border: none;
+    background-color: #c7254e;
+    color: #FFF;
+}
+
+#shortenbutton:hover {
+    background-color: #a7052e;
+    transition-duration: 0.2s;
+}
+
+.result {
+    width: 100%;
+    position: relative;
+    margin-top: 30px;
+    background-color: #FFF;
+    text-align: left;
+    padding: 20px 20px 25px 20px;
+    box-sizing: border-box;
+}
+
+#originalURL {
+    overflow: hidden;
+    font-size: 30px;
+}
+
+#shortenedURLwrapper {
+    margin-top: 25px;
+}
+
+#shortenedURL {
+    color: #c7254e;
+    display: inline;
+}
+
+#copyButton {
+    margin-left: 8px;
+    display: inline;
+    background-color: #FFF;
+    color: #c7254e;
+    border: solid 1px #c7254e;
+    border-radius: 3px;
+    padding: 5px 10px 5px 10px;
+}
+
+#copyButton:hover {
+    color: #FFF;
+    background-color: #c7254e;
+    transition-duration: 0.2s;
+}
