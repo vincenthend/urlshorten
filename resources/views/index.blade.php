@@ -18,22 +18,28 @@
 <div class="title">Localhost</div>
 <div class="subtitle">another URL shortener</div>
 
-<div class="warningBox" style="display: none">
-    <div id="warningMessage">URL is invalid</div>
-    <div id="warningClose">X</div>
-</div>
+<div class="app" ng-app="urlShortener" ng-controller="shortenerController">
+    <div class="warningBox" ng-show="showWarning">
+        <div id="warningMessage">[[warningMessage]]</div>
+        <div id="warningClose" ng-click="closeWarning()">X</div>
+    </div>
 
-<div class="wrapper">
-    <input type="text" id="urlinput" name="url">
-    <button type="submit" id="shortenbutton">shorten it!</button>
-</div>
+    <div class="wrapper">
+        <input type="text" id="urlInput" name="url" ng-model="urlInput" placeholder="place your link here...">
+        <button type="submit" id="shortenbutton" ng-click="shortenLink()">shorten it!</button>
+    </div>
 
-<div class="result">
-    <div id="originalURL">http://google.com</div>
-    <div id="shortenedURLwrapper">
-        <div id="shortenedURL">http://localhost/blablabla</div>
-        <button id="copyButton">copy</button>
+    <div class="result" ng-show="showResult">
+        <div id="originalURL">[[originalURL]]</div>
+        <div id="shortenedURLwrapper">
+            <div id="shortenedURL">[[shortenedURL]]</div>
+            <button id="copyButton">copy</button>
+        </div>
     </div>
 </div>
+
+<!-- angularJS script -->
+<script src="{{asset('js/angular.min.js')}}"></script>
+<script src="{{asset('js/urlShorten.js')}}"></script>
 </body>
 </html>

@@ -13,8 +13,8 @@ Berbeda dengan bit.ly, aplikasi URL Shortener ini dapat melakukan edit dan delet
 ## To Do List
 To Do List disertai perkiraan tanggal jadi
 - [x] Menginstall Framework yang digunakan (5 Juli)
-- [ ] Perancangan aplikasi (basis data, gui, dsb) (6 Juli)
-- [ ] Pembuatan Interface dasar dengan Boostrap (8 Juli)
+- [x] Perancangan aplikasi (basis data, gui, dsb) (6 Juli)
+- [x] Pembuatan Interface dasar dengan Boostrap (8 Juli)
 - [ ] Pembuatan Interface secara fungsional (menggunakan Angular.js) (9 Juli)
 - [ ] Pembuatan fungsi hashing (POST Request untuk mendapatkan shortened URL) (14 Juli)
 - [ ] Pembuatan fungsi redirect (GET Request untuk redirect ke URL) (16 Juli)
