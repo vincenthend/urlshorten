@@ -25,8 +25,10 @@
     </div>
 
     <div class="wrapper">
-        <input type="text" id="urlInput" name="url" ng-model="urlInput" placeholder="place your link here...">
-        <button type="submit" id="shortenbutton" ng-click="shortenLink()">shorten it!</button>
+        <form>
+            <input type="text" id="urlInput" name="url" ng-model="urlInput" placeholder="place your link here...">
+            <button type="submit" id="shortenbutton" ng-click="shortenLink()">shorten it!</button>
+        </form>
     </div>
 
     <div class="result" ng-show="showResult">
