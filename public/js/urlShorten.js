@@ -6,12 +6,13 @@ app.config(function ($interpolateProvider) {
     $interpolateProvider.endSymbol(']]');
 });
 
-app.controller('shortenerController', function ($scope) {
+app.controller('shortenerController', function ($scope, $http) {
         $scope.originalURL = "";
         $scope.shortenedURL = "";
         $scope.showResult = false;
         $scope.showWarning = false;
         $scope.warningMessage = "URL tidak valid!";
+        $scope.url = "http://127.0.0.1:8000/"
 
         //Memvalidasi apakah string adalah URL dengan regex; true jika valid
         function validateURL(url) {
@@ -21,20 +22,27 @@ app.controller('shortenerController', function ($scope) {
 
         //Melakukan shorten pada URL yang valid, menampilkan warning jika tidak
         $scope.shortenLink = function () {
-            //TODO : Validate input
-            if(validateURL($scope.urlInput.valueOf())) {
-                //TODO : Insert urlReturn function here
-                $scope.shortenedURL = "shortenedURL";
+            if (validateURL($scope.urlInput.valueOf())) {
+                var shortURL;
+                //http.ajax($scope.url, {url: $scope.urlInput.valueOf()}
+                shortURL = $http({
+                    method: 'POST',
+                    url: $scope.url,
+                    data: {url: $scope.urlInput.valueOf()}
+                }).then(function (response) {
+                    console.log(response);
+                    $scope.shortenedURL = $scope.url + response.data.shortUrl;
+                });
                 $scope.originalURL = $scope.urlInput.valueOf();
                 $scope.showResult = true;
                 $scope.showWarning = false;
             }
-            else{
+            else {
                 $scope.showWarning = true;
             }
         }
 
-        $scope.closeWarning = function (){
+        $scope.closeWarning = function () {
             $scope.showWarning = false;
         }
     }

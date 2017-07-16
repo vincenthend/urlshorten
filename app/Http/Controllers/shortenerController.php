@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\UrlTable;
+use Illuminate\Http\Request;
 
 class shortenerController extends Controller
 {
@@ -32,7 +33,8 @@ class shortenerController extends Controller
      * @param $url String URL yang akan dipendekkan
      * @return string hasil URL yang dipendekkan
      */
-    public function shortenUrl($url) {
+    public static function shortenUrl(Request $request) {
+        $url = $request->input('url');
         //Cek apakah URL sudah memiliki protokol. Beri protokol bila belum.
         if (preg_match('/(https?:\/\/).*/', $url) == 0) {
             $url = 'http://' . $url;
@@ -56,11 +58,11 @@ class shortenerController extends Controller
         //Masukkan hasil hash pada database
         if ($findResult == null) {
             $data = new UrlTable;
-            $data->shortUrl = $shortenedURL;
+            $data->shortenedUrl = $shortenedURL;
             $data->longUrl = $url;
             $data->save();
         }
 
-        return $shortenedURL;
+        return response()->json(['shortUrl' => $shortenedURL]);
     }
 }
