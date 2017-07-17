@@ -12,7 +12,7 @@ app.controller('shortenerController', function ($scope, $http) {
         $scope.showResult = false;
         $scope.showWarning = false;
         $scope.warningMessage = "URL tidak valid!";
-        $scope.url = "http://127.0.0.1:8000/"
+        $scope.url = window.location;
 
         //Memvalidasi apakah string adalah URL dengan regex; true jika valid
         function validateURL(url) {

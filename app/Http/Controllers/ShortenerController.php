@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\UrlTable;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 
-class shortenerController extends Controller
+class ShortenerController extends Controller
 {
     const defaultUrlLength = 4;
 
@@ -25,15 +26,12 @@ class shortenerController extends Controller
         return $returnData;
     }
 
-
-    //TODO : Validasi ulang URL untuk mencegah request POST tanpa validasi
-
     /**
      * Menghasilkan URL yang sudah dipendekkan.
      * @param $url String URL yang akan dipendekkan
      * @return string hasil URL yang dipendekkan
      */
-    public static function shortenUrl(Request $request) {
+    public function shortenUrl(Request $request) {
         $url = $request->input('url');
         //Cek apakah URL sudah memiliki protokol. Beri protokol bila belum.
         if (preg_match('/(https?:\/\/).*/', $url) == 0) {
@@ -44,15 +42,15 @@ class shortenerController extends Controller
         $hashedURL = hash("md5", $url);
 
         //Lakukan hash pada URL
-        $urlLength = shortenerController::defaultUrlLength;
+        $urlLength = ShortenerController::defaultUrlLength;
         $shortenedURL = substr($hashedURL, 0, $urlLength);
 
         //Cari hasil hash pada database, jika ditemukan perpanjang $urlLength
-        $findResult = shortenerController::findUrl($shortenedURL);
+        $findResult = ShortenerController::findUrl($shortenedURL);
         while ($findResult != $url && $findResult != null) {
             $urlLength++;
             $shortenedURL = substr($hashedURL, 0, $urlLength);
-            $findResult = shortenerController::findUrl($shortenedURL);
+            $findResult = ShortenerController::findUrl($shortenedURL);
         }
 
         //Masukkan hasil hash pada database
@@ -64,5 +62,15 @@ class shortenerController extends Controller
         }
 
         return response()->json(['shortUrl' => $shortenedURL]);
+    }
+
+    public function unshortenUrl($url){
+        $longUrl = ShortenerController::findUrl($url);
+        if ($longUrl == null){
+            //Return 404 page
+        }
+        else{
+            return Redirect::to($longUrl);
+        }
     }
 }

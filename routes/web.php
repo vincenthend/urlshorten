@@ -15,4 +15,6 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::post('/','shortenerController@shortenUrl');
+Route::post('/','ShortenerController@shortenUrl');
+
+Route::get('/{shortUrl}','ShortenerController@unshortenUrl');
