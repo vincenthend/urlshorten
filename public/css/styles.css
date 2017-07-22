@@ -75,16 +75,16 @@ body {
     box-sizing: border-box;
 }
 
-#originalURL {
+#originalUrl {
     overflow: hidden;
     font-size: 30px;
 }
 
-#shortenedURLwrapper {
+#shortenedUrlwrapper {
     margin-top: 25px;
 }
 
-#shortenedURL {
+#shortenedUrl {
     color: #c7254e;
     display: inline;
 }

@@ -7,43 +7,49 @@ app.config(function ($interpolateProvider) {
 });
 
 app.controller('shortenerController', function ($scope, $http) {
-        $scope.originalURL = "";
-        $scope.shortenedURL = "";
+        $scope.originalUrl = "";
+        $scope.shortenedUrl = "";
         $scope.showResult = false;
         $scope.showWarning = false;
+        $scope.isEditing = false;
         $scope.warningMessage = "URL tidak valid!";
         $scope.url = window.location;
 
         //Memvalidasi apakah string adalah URL dengan regex; true jika valid
-        function validateURL(url) {
+        function validateUrl(url) {
             var pattern = new RegExp(/(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/);
             return pattern.test(url);
         }
 
         //Melakukan shorten pada URL yang valid, menampilkan warning jika tidak
         $scope.shortenLink = function () {
-            if (validateURL($scope.urlInput.valueOf())) {
-                var shortURL;
-                //http.ajax($scope.url, {url: $scope.urlInput.valueOf()}
-                shortURL = $http({
+            console.log($scope.url["origin"]);
+            if (validateUrl($scope.urlInput.valueOf())) {
+                var shortURL = $http({
                     method: 'POST',
-                    url: $scope.url,
-                    data: {url: $scope.urlInput.valueOf()}
+                    url: $scope.url["origin"],
+                    data : {
+                        url : $scope.urlInput.valueOf()
+                    }
                 }).then(function (response) {
                     console.log(response);
-                    $scope.shortenedURL = $scope.url + response.data.shortUrl;
+                    $scope.shortenedUrl = $scope.url + response.data.shortUrl;
                 });
-                $scope.originalURL = $scope.urlInput.valueOf();
+                $scope.originalUrl = $scope.urlInput.valueOf();
                 $scope.showResult = true;
                 $scope.showWarning = false;
             }
             else {
                 $scope.showWarning = true;
             }
-        }
+        };
 
         $scope.closeWarning = function () {
             $scope.showWarning = false;
+        };
+
+        $scope.copyLink = function(){
+
         }
     }
 );

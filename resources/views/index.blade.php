@@ -32,10 +32,9 @@
     </div>
 
     <div class="result" ng-show="showResult">
-        <div id="originalURL">[[originalURL]]</div>
-        <div id="shortenedURLwrapper">
-            <div id="shortenedURL">[[shortenedURL]]</div>
-            <button id="copyButton">copy</button>
+        <div id="originalUrl">[[originalUrl]]</div>
+        <div id="shortenedUrlwrapper">
+            <div id="shortenedUrl" ng-show="!isEditing"><a ng-href="[[shortenedUrl]]">[[shortenedUrl]]</a></div>
         </div>
     </div>
 </div>
