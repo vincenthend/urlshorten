@@ -27,50 +27,82 @@ class ShortenerController extends Controller
     }
 
     /**
+     * Menyimpan data longUrl dan shortUrl pada database. Prekondisi shortUrl tersedia
+     * @param $longUrl string URL asli
+     * @param $shortUrl string URL hasil pemendekan dari URL asli
+     * @return int 1 jika data berhasil di save, 0 jika tidak (sudah ada shortLink)
+     */
+    private static function saveUrl($longUrl, $shortUrl) {
+        $data = new UrlTable;
+        $data->shortenedUrl = $shortUrl;
+        $data->longUrl = $longUrl;
+        $data->save();
+    }
+
+    /**
      * Menghasilkan URL yang sudah dipendekkan.
      * @param $url String URL yang akan dipendekkan
      * @return string hasil URL yang dipendekkan
      */
     public function shortenUrl(Request $request) {
-        $url = $request->input('url');
+        $longUrl = $request->input('url');
         //Cek apakah URL sudah memiliki protokol. Beri protokol bila belum.
-        if (preg_match('/(https?:\/\/).*/', $url) == 0) {
-            $url = 'http://' . $url;
+        if (preg_match('/(https?:\/\/).*/', $longUrl) == 0) {
+            $longUrl = 'http://' . $longUrl;
         }
 
         //Lakukan hashing pada URL
-        $hashedURL = hash("md5", $url);
+        $hashedUrl = hash("md5", $longUrl);
 
-        //Lakukan hash pada URL
+        //Lakukan pemendekan pada hasil hash
         $urlLength = ShortenerController::defaultUrlLength;
-        $shortenedURL = substr($hashedURL, 0, $urlLength);
+        $shortenedUrl = substr($hashedUrl, 0, $urlLength);
 
-        //Cari hasil hash pada database, jika ditemukan perpanjang $urlLength
-        $findResult = ShortenerController::findUrl($shortenedURL);
-        while ($findResult != $url && $findResult != null) {
+        //Cari hasil hash pada database, jika ditemukan perpanjang hasil hash
+        $findResult = ShortenerController::findUrl($shortenedUrl);
+        while ($findResult != $longUrl && $findResult != null) {
             $urlLength++;
-            $shortenedURL = substr($hashedURL, 0, $urlLength);
-            $findResult = ShortenerController::findUrl($shortenedURL);
+            $shortenedUrl = substr($hashedUrl, 0, $urlLength);
+            $findResult = ShortenerController::findUrl($shortenedUrl);
         }
 
         //Masukkan hasil hash pada database
         if ($findResult == null) {
-            $data = new UrlTable;
-            $data->shortenedUrl = $shortenedURL;
-            $data->longUrl = $url;
-            $data->save();
+            $this->saveUrl($longUrl, $shortenedUrl);
         }
 
-        return response()->json(['shortUrl' => $shortenedURL]);
+        return response()->json(['shortUrl' => $shortenedUrl]);
     }
 
-    public function unshortenUrl($url){
-        $longUrl = ShortenerController::findUrl($url);
-        if ($longUrl == null){
+    /**
+     * Mengembalikan alamat website yang dituju jika URL yang dipendekkan ada
+     * dan halaman error jika URL tidak ada.
+     * @param $shortUrl string Url yang sudah dipendekkan
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function unshortenUrl($shortUrl) {
+        $longUrl = ShortenerController::findUrl($shortUrl);
+        if ($longUrl == null) {
             //Return 404 page
+            return view('error');
+        } else {
+            return Redirect::to($longUrl);
+        }
+    }
+
+    public function createCustomUrl($shortUrl, Request $request) {
+        $longUrl = $request->input('url');
+
+        if (preg_match('/(https?:\/\/).*/', $longUrl) == 0) {
+            $longUrl = 'http://' . $longUrl;
+        }
+
+        if (ShortenerController::findUrl($shortUrl) == null) {
+            ShortenerController::saveUrl($longUrl,$shortUrl);
+            return response()->json(['status' => 1]);
         }
         else{
-            return Redirect::to($longUrl);
+            return response()->json(['status' => 0]);
         }
     }
 }

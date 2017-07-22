@@ -89,7 +89,11 @@ body {
     display: inline;
 }
 
-#copyButton {
+#shortenedUrl a{
+    color: #c7254e;
+}
+
+.button {
     margin-left: 8px;
     display: inline;
     background-color: #FFF;
@@ -99,8 +103,14 @@ body {
     padding: 5px 10px 5px 10px;
 }
 
-#copyButton:hover {
+.button:hover {
     color: #FFF;
     background-color: #c7254e;
     transition-duration: 0.2s;
+}
+
+.editField{
+    width: 10%;
+    color: #c7254e;
+    border:none;
 }

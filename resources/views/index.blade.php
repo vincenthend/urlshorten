@@ -34,7 +34,15 @@
     <div class="result" ng-show="showResult">
         <div id="originalUrl">[[originalUrl]]</div>
         <div id="shortenedUrlwrapper">
-            <div id="shortenedUrl" ng-show="!isEditing"><a ng-href="[[shortenedUrl]]">[[shortenedUrl]]</a></div>
+            <div ng-show="!isEditing" id="shortenedUrl">
+                <a ng-href="[[url]][[shortenedUrl]]">[[url]][[shortenedUrl]]</a>
+            </div>
+            <form ng-show="isEditing">
+                <div id="shortenedUrl">[[url]]<input class="editField" type="text" ng-model=shortenedUrl></div>
+                <button class="button" ng-click="saveLink()" ng-show="isEditing">save</button>
+            </form>
+            <button class="button" ng-click="copyLink()" ng-show="!isEditing">copy</button>
+            <button class="button" ng-click="editLink()" ng-show="!isEditing">edit</button>
         </div>
     </div>
 </div>

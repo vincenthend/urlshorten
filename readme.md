@@ -2,8 +2,10 @@
 
 ## Deskripsi Aplikasi
 ### Deskripsi Singkat
-Aplikasi URL Shortener akan melakukan shortening pada URL yang dimasukkan dengan menggunakan hash. Pengguna dapat mengedit URL yang sudah diberikan untuk men
-Berbeda dengan bit.ly, aplikasi URL Shortener ini dapat melakukan edit dan delete pada URL yang sudah diterbitkan.
+Aplikasi URL Shortener akan melakukan shortening pada URL yang dimasukkan dengan menggunakan hash. Pengguna dapat mengedit URL yang sudah dibuat untuk mendapatkan URL custom
+
+Catatan tambahan :
+- Fungsionalitas delete dihilangkan untuk mencegah orang lain menghapus link yang sudah dibuat 
 
 ### Framework
 

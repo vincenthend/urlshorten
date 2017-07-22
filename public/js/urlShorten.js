@@ -9,10 +9,11 @@ app.config(function ($interpolateProvider) {
 app.controller('shortenerController', function ($scope, $http) {
         $scope.originalUrl = "";
         $scope.shortenedUrl = "";
+        $scope.tempUrl = "";
         $scope.showResult = false;
         $scope.showWarning = false;
         $scope.isEditing = false;
-        $scope.warningMessage = "URL tidak valid!";
+        $scope.warningMessage = "";
         $scope.url = window.location;
 
         //Memvalidasi apakah string adalah URL dengan regex; true jika valid
@@ -25,31 +26,45 @@ app.controller('shortenerController', function ($scope, $http) {
         $scope.shortenLink = function () {
             console.log($scope.url["origin"]);
             if (validateUrl($scope.urlInput.valueOf())) {
-                var shortURL = $http({
-                    method: 'POST',
-                    url: $scope.url["origin"],
-                    data : {
-                        url : $scope.urlInput.valueOf()
-                    }
-                }).then(function (response) {
-                    console.log(response);
-                    $scope.shortenedUrl = $scope.url + response.data.shortUrl;
-                });
+                $http.post($scope.url["origin"], {url: $scope.urlInput.valueOf()})
+                    .then(function (response) {
+                        console.log(response);
+                        $scope.shortenedUrl = response.data.shortUrl;
+                    });
                 $scope.originalUrl = $scope.urlInput.valueOf();
                 $scope.showResult = true;
                 $scope.showWarning = false;
+                $scope.isEditing = false;
             }
             else {
+                $scope.warningMessage = "URL tidak valid!";
                 $scope.showWarning = true;
             }
         };
-
         $scope.closeWarning = function () {
             $scope.showWarning = false;
         };
-
-        $scope.copyLink = function(){
-
-        }
+        $scope.copyLink = function () {
+            //TODO : Fungsi copy ke clipboard
+        };
+        $scope.editLink = function () {
+            $scope.isEditing = true;
+        };
+        $scope.saveLink = function () {
+            $scope.tempUrl = $scope.shortenedUrl;
+            //Send POST request
+            $http.post('/'+$scope.shortenedUrl,{url: $scope.originalUrl}).then(function(response){
+                //If save request is accepted, save new data
+                //If save request is notAccepted, return using tempUrl
+                if(response.data.status === 1){
+                    $scope.isEditing = false;
+                }
+                else{
+                    $scope.shortenedUrl = $scope.tempUrl;
+                    $scope.warningMessage = "URL sudah ada!";
+                    $scope.showWarning = true;
+                }
+            });
+        };
     }
 );
