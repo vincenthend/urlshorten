@@ -35,7 +35,7 @@
         <div id="originalUrl">[[originalUrl]]</div>
         <div id="shortenedUrlwrapper">
             <div ng-show="!isEditing" id="shortenedUrl">
-                <a ng-href="[[url]][[shortenedUrl]]">[[url]][[shortenedUrl]]</a>
+                <a id="shortenedUrl" ng-href="[[url]][[shortenedUrl]]">[[url]][[shortenedUrl]]</a>
             </div>
             <form ng-show="isEditing">
                 <div id="shortenedUrl">[[url]]<input class="editField" type="text" ng-model=shortenedUrl></div>

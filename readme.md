@@ -20,6 +20,6 @@ To Do List disertai perkiraan tanggal jadi
 - [x] Pembuatan Interface secara fungsional (menggunakan Angular.js) (9 Juli)
 - [x] Pembuatan fungsi hashing (POST Request untuk mendapatkan shortened URL) (16 Juli)
 - [x] Pembuatan fungsi redirect (GET Request untuk redirect ke URL) (20 Juli)
-- [ ] Pembuatan fungsionalitas tambahan (Edit shortlink) (20 Juli)
+- [x] Pembuatan fungsionalitas tambahan (Edit shortlink) (20 Juli)
 - [ ] Pembuatan unit test dengan PHP Unit (22 Juli)
 - [ ] Testing final, finishing (sebelum 26 Juli)

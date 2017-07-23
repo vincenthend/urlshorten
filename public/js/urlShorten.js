@@ -45,7 +45,10 @@ app.controller('shortenerController', function ($scope, $http) {
             $scope.showWarning = false;
         };
         $scope.copyLink = function () {
-            //TODO : Fungsi copy ke clipboard
+            var range = document.createRange();
+            range.selectNode(document.getElementById("shortenedUrl"));
+            window.getSelection().addRange(range);
+            document.execCommand("Copy");
         };
         $scope.editLink = function () {
             $scope.isEditing = true;
