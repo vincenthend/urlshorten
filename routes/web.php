@@ -17,6 +17,6 @@ Route::get('/', function () {
 
 Route::post('/', 'ShortenerController@shortenUrl');
 
-Route::get('/{shortUrl}', 'ShortenerController@unshortenUrl');
+Route::get('/{shortUrl}', 'ShortenerController@normalizeUrl');
 
 Route::post('/{shortUrl}','ShortenerController@createCustomUrl');

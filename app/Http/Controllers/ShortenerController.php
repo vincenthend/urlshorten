@@ -80,7 +80,7 @@ class ShortenerController extends Controller
      * @param $shortUrl string Url yang sudah dipendekkan
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
-    public function unshortenUrl($shortUrl) {
+    public function normalizeUrl($shortUrl) {
         $longUrl = ShortenerController::findUrl($shortUrl);
         if ($longUrl == null) {
             //Return 404 page
@@ -90,6 +90,12 @@ class ShortenerController extends Controller
         }
     }
 
+    /**
+     * Membuat customUrl dengan shortUrl dan longUrl
+     * @param $shortUrl isi dari shortUrl
+     * @param Request $request request berisi longUrl
+     * @return \Illuminate\Http\JsonResponse hasil apakah Url diterima
+     */
     public function createCustomUrl($shortUrl, Request $request) {
         $longUrl = $request->input('url');
 
@@ -97,7 +103,7 @@ class ShortenerController extends Controller
             $longUrl = 'http://' . $longUrl;
         }
 
-        if (ShortenerController::findUrl($shortUrl) == null) {
+        if (ShortenerController::findUrl($shortUrl) == null || ShortenerController::findUrl($shortUrl) == $longUrl) {
             ShortenerController::saveUrl($longUrl,$shortUrl);
             return response()->json(['status' => 1]);
         }

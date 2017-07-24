@@ -22,52 +22,66 @@ app.controller('shortenerController', function ($scope, $http) {
             return pattern.test(url);
         }
 
-        //Melakukan shorten pada URL yang valid, menampilkan warning jika tidak
+        //Melakukan shorten pada URL yang valid.
         $scope.shortenLink = function () {
-            console.log($scope.url["origin"]);
             if (validateUrl($scope.urlInput.valueOf())) {
                 $http.post($scope.url["origin"], {url: $scope.urlInput.valueOf()})
                     .then(function (response) {
-                        console.log(response);
-                        $scope.shortenedUrl = response.data.shortUrl;
+                        if (response.status == 200 || response.status == 201) {
+                            $scope.shortenedUrl = response.data.shortUrl;
+                            $scope.originalUrl = $scope.urlInput.valueOf();
+                            $scope.showResult = true;
+                            $scope.showWarning = false;
+                            $scope.isEditing = false;
+                        }
+                    }, function (error) {
+                        //Error message on unable to connect
+                        $scope.showWarning = true;
+                        $scope.warningMessage = "Connection Error";
                     });
-                $scope.originalUrl = $scope.urlInput.valueOf();
-                $scope.showResult = true;
-                $scope.showWarning = false;
-                $scope.isEditing = false;
             }
             else {
                 $scope.warningMessage = "URL tidak valid!";
                 $scope.showWarning = true;
             }
         };
-        $scope.closeWarning = function () {
-            $scope.showWarning = false;
-        };
+        //Melakukan copy shortenedUrl pada clipboard
         $scope.copyLink = function () {
             var range = document.createRange();
             range.selectNode(document.getElementById("shortenedUrl"));
             window.getSelection().addRange(range);
             document.execCommand("Copy");
         };
+        //Membuat shortenedUrl menjadi editable
         $scope.editLink = function () {
             $scope.isEditing = true;
-        };
-        $scope.saveLink = function () {
             $scope.tempUrl = $scope.shortenedUrl;
+        };
+        //Menyimpan shortenedUrl
+        $scope.saveLink = function () {
             //Send POST request
-            $http.post('/'+$scope.shortenedUrl,{url: $scope.originalUrl}).then(function(response){
-                //If save request is accepted, save new data
-                //If save request is notAccepted, return using tempUrl
-                if(response.data.status === 1){
-                    $scope.isEditing = false;
-                }
-                else{
-                    $scope.shortenedUrl = $scope.tempUrl;
-                    $scope.warningMessage = "URL sudah ada!";
-                    $scope.showWarning = true;
-                }
-            });
+            if ($scope.tempUrl != $scope.shortenedUrl) {
+                $http.post('/' + $scope.shortenedUrl, {url: $scope.originalUrl}).then(function (response) {
+                    //If save request is accepted, save new data
+                    //If save request is notAccepted, return using tempUrl
+                    if (response.data.status === 1) {
+                        $scope.isEditing = false;
+                    }
+                    else {
+                        $scope.shortenedUrl = $scope.tempUrl;
+                        $scope.warningMessage = "URL sudah ada!";
+                        $scope.showWarning = true;
+                    }
+                });
+            }
+            else {
+                $scope.isEditing = false;
+            }
+        };
+
+        //Menutup pesan warning
+        $scope.closeWarning = function () {
+            $scope.showWarning = false;
         };
     }
 );
