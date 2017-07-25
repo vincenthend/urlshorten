@@ -10,12 +10,16 @@ Aplikasi URL Shortener akan melakukan shortening pada URL yang dimasukkan dengan
 * Back End : Laravel 5.4
 
 ### Requirements
-* Database MySQL, konfigurasi username-password-port dapat diatur pada config/database.php
+* Database MySQL, terdapat database yang sudah dibuat untuk menyimpan data
+* Composer (sudah terinstall dependency melalui perintah 'composer install')
 
 ### Installation
-1. asdasd
-2. asdasd
-3. asdasd
+1. Copy file .env.example dan rename menjadi .env
+2. Ganti konfigurasi database (connection, host, port, username, password, nama database (sesuai nama database yang dibuat))
+3. Jalankan perintah 'php artisan key:generate' untuk generate application key
+3. Jalankan perintah 'php artisan migrate:install' untuk melakukan setup database
+4. Jalankan perintah 'php artisan migrate' untuk melakukan setup tabel
+4. Jalankan perintah 'php artisan serve' untuk menyalakan server
 
 ## To Do List
 To Do List disertai perkiraan tanggal jadi

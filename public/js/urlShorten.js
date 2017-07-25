@@ -45,18 +45,22 @@ app.controller('shortenerController', function ($scope, $http) {
                 $scope.showWarning = true;
             }
         };
-        //Melakukan copy shortenedUrl pada clipboard
+
+        /*Melakukan copy shortenedUrl pada clipboard
+         */
         $scope.copyLink = function () {
             var range = document.createRange();
             range.selectNode(document.getElementById("shortenedUrl"));
             window.getSelection().addRange(range);
             document.execCommand("Copy");
         };
+
         //Membuat shortenedUrl menjadi editable
         $scope.editLink = function () {
             $scope.isEditing = true;
             $scope.tempUrl = $scope.shortenedUrl;
         };
+
         //Menyimpan shortenedUrl
         $scope.saveLink = function () {
             //Send POST request
