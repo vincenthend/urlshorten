@@ -4,13 +4,18 @@
 ### Deskripsi Singkat
 Aplikasi URL Shortener akan melakukan shortening pada URL yang dimasukkan dengan menggunakan hash. Pengguna dapat mengedit URL yang sudah dibuat untuk mendapatkan URL custom
 
-Catatan tambahan :
-- Fungsionalitas delete dihilangkan untuk mencegah orang lain menghapus link yang sudah dibuat 
-
 ### Framework
 
 * Front End : Angular.js
 * Back End : Laravel 5.4
+
+### Requirements
+* Database MySQL, konfigurasi username-password-port dapat diatur pada config/database.php
+
+### Installation
+1. asdasd
+2. asdasd
+3. asdasd
 
 ## To Do List
 To Do List disertai perkiraan tanggal jadi
@@ -21,5 +26,5 @@ To Do List disertai perkiraan tanggal jadi
 - [x] Pembuatan fungsi hashing (POST Request untuk mendapatkan shortened URL) (16 Juli)
 - [x] Pembuatan fungsi redirect (GET Request untuk redirect ke URL) (20 Juli)
 - [x] Pembuatan fungsionalitas tambahan (Edit shortlink) (20 Juli)
-- [ ] Pembuatan unit test dengan PHP Unit (22 Juli)
+- [x] Pembuatan unit test dengan PHP Unit (22 Juli)
 - [ ] Testing final, finishing (sebelum 26 Juli)

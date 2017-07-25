@@ -75,7 +75,7 @@ class ShortenerController extends Controller
     }
 
     /**
-     * Mengembalikan alamat website yang dituju jika URL yang dipendekkan ada
+     * Menuju alamat website yang dituju jika URL yang dipendekkan ditemukan dalam database
      * dan halaman error jika URL tidak ada.
      * @param $shortUrl string Url yang sudah dipendekkan
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
@@ -83,7 +83,6 @@ class ShortenerController extends Controller
     public function normalizeUrl($shortUrl) {
         $longUrl = ShortenerController::findUrl($shortUrl);
         if ($longUrl == null) {
-            //Return 404 page
             return view('error');
         } else {
             return Redirect::to($longUrl);
@@ -104,10 +103,9 @@ class ShortenerController extends Controller
         }
 
         if (ShortenerController::findUrl($shortUrl) == null || ShortenerController::findUrl($shortUrl) == $longUrl) {
-            ShortenerController::saveUrl($longUrl,$shortUrl);
+            ShortenerController::saveUrl($longUrl, $shortUrl);
             return response()->json(['status' => 1]);
-        }
-        else{
+        } else {
             return response()->json(['status' => 0]);
         }
     }

@@ -18,6 +18,7 @@ class shortenTest extends TestCase
      * @return void
      */
     public function testShortenUrl() {
+        print("Test pemendekan URL\n");
         $response = $this->POST('/', ['url' => 'google.com']);
         $response->assertStatus(200);
         $response->assertJson(['shortUrl' => 'c7b9']);
@@ -29,11 +30,15 @@ class shortenTest extends TestCase
      * @return void
      */
     public function testNormalizeUrl() {
+        print("Test redirect pada short URL yang sudah ada\n");
+        $this->POST('/', ['url' => 'google.com']);
         $response = $this->GET('/c7b9');
         $response->assertStatus(302);
         $response->assertRedirect('http://google.com');
 
-        //TODO : Test error 404
+        print("Test redirect pada short URL yang tidak tersedia\n");
+        $response = $this->GET('/randomLink');
+        $response->assertSee("404");
     }
 
     /**
@@ -42,7 +47,7 @@ class shortenTest extends TestCase
      * @return void
      */
     public function testCustomUrl() {
-        print("Testing custom URL making (available)");
+        print("Test pembuatan URL custom\n");
         $response = $this->POST('/google', ['url' => 'google.com']);
         $response->assertStatus(200);
         $response->assertJson(['status' => 1]);
@@ -50,7 +55,7 @@ class shortenTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirect('http://google.com');
 
-        print("Testing custom URL making (unavailable)");
+        print("Test pembuatan URL custom yang sudah ada\n");
         $response = $this->POST('/google', ['url' => 'facebook.com']);
         $response->assertStatus(200);
         $response->assertJson(['status' => 0]);

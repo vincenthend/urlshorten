@@ -15,7 +15,7 @@
 
 </head>
 <body>
-<div class="title">Localhost</div>
+<div class="title">Local<font color="#c7254e">host</font></div>
 <div class="subtitle">another URL shortener</div>
 
 <div class="app" ng-app="urlShortener" ng-controller="shortenerController">
