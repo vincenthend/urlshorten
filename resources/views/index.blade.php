@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Localhost - URL Shortener</title>
+    <title>Shortz - URL Shortener</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
@@ -15,7 +15,7 @@
 
 </head>
 <body>
-<div class="title">Local<font color="#c7254e">host</font></div>
+<div class="title">Short<font color="#c7254e">Z</font></div>
 <div class="subtitle">another URL shortener</div>
 
 <div class="app" ng-app="urlShortener" ng-controller="shortenerController">
